@@ -2,10 +2,11 @@
 
 - :computer: What: SysAdmin
 - :round_pushpin: Where: Argentina (GMT -3)
+- :closed_book: Currently learning: Kubernetes and SRE stuff
 - :mailbox: Contact: [mailto:fhielpos@gmail.com](fhielpos@gmail.com)
 - :pizza: Favourite meal: Tortilla de papas
 
-### I started an Spanish IT blog where I write about stuff I have learned:
+### I started a Spanish IT blog where I write about stuff I have learned:
 :earth_americas: [Webpage](https://culpeo.blog) 
 :octocat: [Github](https://github.com/culpeoit)
 
