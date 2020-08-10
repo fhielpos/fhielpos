@@ -1,13 +1,13 @@
-My name is Franco,
+## Hi there, I'm Franco :wave:
 
 - :computer: What: SysAdmin
-- :round_pushpin: From: Argentina (GMT -3)
+- :round_pushpin: Where: Argentina (GMT -3)
 - :mailbox: Contact: [mailto:fhielpos@gmail.com](fhielpos@gmail.com)
 - :pizza: Favourite meal: Tortilla de papas
 
 ### I started an Spanish IT blog where I write about stuff I have learned:
-:earth_americas: [https://culpeo.blog](Webpage) 
-:octocat: [https://github.com/culpeoit](Github)
+:earth_americas: [Webpage](https://culpeo.blog) 
+:octocat: [Github](https://github.com/culpeoit)
 
 <!--
 **fhielpos/fhielpos** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
