@@ -1,7 +1,7 @@
 ## Hi there, I'm Franco :wave:
 
 - :computer: What: SysAdmin
-- :round_pushpin: Where: Argentina (GMT -3)
+- :round_pushpin:  Where: Argentina (GMT -3)
 - :closed_book: Currently learning: Kubernetes and SRE stuff
 - :mailbox: Contact: [mailto:fhielpos@gmail.com](fhielpos@gmail.com)
 - :pizza: Favourite meal: Tortilla de papas
