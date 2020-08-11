@@ -1,6 +1,7 @@
 ## Hi there, I'm Franco :wave:
 
-- :computer: What: SysAdmin
+- :computer: What: SysAdmin 
+- :wrench: [Previous experience](EXPERIENCE.md)
 - :round_pushpin:  Where: Argentina (GMT -3)
 - :closed_book: Currently learning: Kubernetes and SRE stuff
 - :mailbox: Contact: [fhielpos@gmail.com](mailto:fhielpos@gmail.com)
