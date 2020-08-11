@@ -5,6 +5,7 @@ This is a full list of my tasks in my previous jobs. It's a bit extensive. [Ask 
 ## Index
 
 * `IT/Engineering` [Telefonia y Sistemas SRL](#telefonia-y-sistemas-srl)
+* `Volunteer` [Programming and Problem Solving Tournament](#volunteer)
 * `IT/Support` [CTEC Patagonia IT](#ctec-patagonia-it)
 * `IT/Engineering` [Freelancer](#freelance)
 * `Retail/Support` [COTO CICSA](#coto-cicsa)
@@ -58,6 +59,16 @@ To do this I:
 * Restricted publicly open ports to only required ones.
 	* Changed the port numbers of known ports.
 	* Implemented public-key auth for SSH and other ports.
+
+## Volunteer
+
+### Programming and Problem Solving Tournament
+
+I was an assistant in my University's `Programming and Problem Solving Tournament for High Schools`. If there's something I love more than solving problems is to help people solve them.
+
+IT is growing in Argentina, but there is still a lot of work to do, empowering teenagers to learn more about programming helps us develop a better future for our world.
+
+This was an incredible experience in 2019 which I couldn't repeat in 2020 due of COVID, but I am looking forward to repeat it in the future. In the meantime [I share knowledge in my blog](https://culpeo.blog).
 
 ## CTEC Patagonia IT
 
