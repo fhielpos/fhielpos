@@ -1,9 +1,9 @@
 ## Hi there, I'm Franco :wave:
 
 - :computer: What: SysAdmin 
-- :wrench: [Previous experience](https://github.com/fhielpos/fhielpos/blob/master/EXPERIENCE.md)
+- :wrench: [LinkedIn](https://linkedin.com/in/hielposfranco)
 - :round_pushpin:  Where: Argentina (GMT -3)
-- :closed_book: Currently learning: Certified Kubernetes Administrator learning track <img src="https://raw.githubusercontent.com/buildkite/emojis/master/img-buildkite-64/kubernetes.png" width="20" height="20" alt="kubernetes"/>
+- <img src="https://raw.githubusercontent.com/buildkite/emojis/master/img-buildkite-64/kubernetes.png" width="20" height="20" alt="kubernetes"/> Certified Kubernetes Administrator
 - :mailbox: Contact: [fhielpos@gmail.com](mailto:fhielpos@gmail.com)
 - :pizza: Favourite meal: Tortilla de papas :potato:
 
