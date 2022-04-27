@@ -18,7 +18,7 @@ jobs:
         issue_id=$(cat $GITHUB_EVENT_PATH | jq .issue.node_id)
         issue_url=$(cat $GITHUB_EVENT_PATH | jq -r .issue.url)
 
-        for envvar in $(env | grep GS_ | awk -F '=' '{print $2}'); do
+        for envvar in $(env | grep FH_ | awk -F '=' '{print $2}'); do
             label=$(echo $envvar | awk -F ',' '{print $1}')
             project_number=$(echo $envvar | awk -F ',' '{print $2}')
             if [[ "$event_label" == "$label" ]]; then
