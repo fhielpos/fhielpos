@@ -37,7 +37,8 @@ jobs:
                                   }
                                 }' -f org=$ORGANIZATION -F number=$project_number --jq '.data.user.projectNext.id')
 
-                echo $PROJECT_ID
+                echo "Project: "$PROJECT_ID
+                echo "Issue: " $issue_id
 
                 if [[ "$action" == "labeled" ]]; then
                     gh api graphql -f query='
