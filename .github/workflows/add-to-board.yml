@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Get project node ID
       env:
-        GH_TOKEN: ${{ secrets.gh_api_token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ORGANIZATION: fhielpos
         PROJECT_NUMBER: 2
       run: |
