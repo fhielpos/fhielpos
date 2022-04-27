@@ -7,45 +7,49 @@ jobs:
     name: Add issue to board
     runs-on: ubuntu-latest
     steps:
-    - name: Get project node ID
+    - name: Validate labels
       env:
         GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
+        FH_BUG: type/bug,3
         ORGANIZATION: fhielpos
-        PROJECT_NUMBER: 3
       run: |
-        gh api graphql -f query='
-          query($org: String!, $number: Int!) {
-            user(login: $org){
-              projectNext(number: $number) {
-                id
-                fields(first:20) {
-                  nodes {
-                    id
-                    name
-                    settings
-                  }
-                }
-              }
-            }
-          }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
-        cat project_data.json
-        echo 'PROJECT_ID='$(jq '.data.user.projectNext.id' project_data.json) >> $GITHUB_ENV
-        echo 'DATE_FIELD_ID='$(jq '.data.user.projectNext.fields.nodes[] | select(.name== "Date posted") | .id' project_data.json) >> $GITHUB_ENV
-        echo 'STATUS_FIELD_ID='$(jq '.data.user.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
-        echo 'TODO_OPTION_ID='$(jq '.data.user.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
+        action=$(cat $GITHUB_EVENT_PATH | jq -r .action)
+        event_label=$(cat $GITHUB_EVENT_PATH | jq -r .label.name)
+        issue_id=$(cat $GITHUB_EVENT_PATH | jq .issue.node_id)
+        issue_url=$(cat $GITHUB_EVENT_PATH | jq -r .issue.url)
 
-    - name: Add issue to project
-      env:
-        GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
-        ISSUE_ID: ${{ github.event.issue.node_id }}
-      run: |
-        item_id="$( gh api graphql -f query='
-          mutation($project:ID!, $issue:ID!) {
-            addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
-              projectNextItem {
-                id
-              }
-            }
-          }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id')"
+        for envvar in $(env | grep GS_ | awk -F '=' '{print $2}'); do
+            label=$(echo $envvar | awk -F ',' '{print $1}')
+            project_number=$(echo $envvar | awk -F ',' '{print $2}')
+            if [[ "$event_label" == "$label" ]]; then
+                # Get project node ID:
+                PROJECT_ID=$(gh api graphql -f query='
+                                query($org: String!, $number: Int!) {
+                                  user(login: $org){
+                                    projectNext(number: $number) {
+                                      id
+                                      fields(first:20) {
+                                        nodes {
+                                          id
+                                        }
+                                      }
+                                    }
+                                  }
+                                }' -f org=$ORGANIZATION -F number=$project_number)
 
-        echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+                echo $PROJECT_ID
+
+                if [[ "$action" == "labeled" ]]; then
+                    gh api graphql -f query='
+                      mutation($project:ID!, $issue:ID!) {
+                        addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
+                          projectNextItem {
+                            id
+                          }
+                        }
+                      }' -f project=$PROJECT_ID -f issue=$issue_id
+                else
+                    echo "Unlabeled issue"
+                fi
+            fi
+        done
