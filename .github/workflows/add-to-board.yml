@@ -35,7 +35,7 @@ jobs:
                                       }
                                     }
                                   }
-                                }' -f org=$ORGANIZATION -F number=$project_number)
+                                }' -f org=$ORGANIZATION -F number=$project_number --jq '.data.user.projectNext.id')
 
                 echo $PROJECT_ID
 
