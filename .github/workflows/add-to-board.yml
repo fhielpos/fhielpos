@@ -1,0 +1,51 @@
+name: Add issue to board
+on:
+  issues:
+    types: [labeled, unlabeled]
+jobs:
+  job:
+    name: Add issue to board
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get project node ID
+      env:
+        GITHUB_TOKEN: ${{ secrets.gh_api_token }}
+        ORGANIZATION: fhielpos
+        PROJECT_NUMBER: 2
+      run: |
+        gh api graphql -f query='
+          query($org: String!, $number: Int!) {
+            user(login: $org){
+              projectNext(number: $number) {
+                id
+                fields(first:20) {
+                  nodes {
+                    id
+                    name
+                    settings
+                  }
+                }
+              }
+            }
+          }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
+
+        echo 'PROJECT_ID='$(jq '.data.organization.projectNext.id' project_data.json) >> $GITHUB_ENV
+        echo 'DATE_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Date posted") | .id' project_data.json) >> $GITHUB_ENV
+        echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+        echo 'TODO_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
+
+    - name: Add issue to project
+      env:
+        GITHUB_TOKEN: ${{ secrets.gh_api_token }}
+        ISSUE_ID: ${{ github.event.issue.node_id }}
+      run: |
+        item_id="$( gh api graphql -f query='
+          mutation($project:ID!, $pr:ID!) {
+            addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
+              projectNextItem {
+                id
+              }
+            }
+          }' -f project=$PROJECT_ID -f pr=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id')"
+
+        echo 'ITEM_ID='$item_id >> $GITHUB_ENV
