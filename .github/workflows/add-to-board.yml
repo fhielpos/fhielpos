@@ -10,7 +10,8 @@ jobs:
     - name: Validate labels
       env:
         GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
-        MESSAGE: ${{ github.event.client_payload }}
+        MESSAGE: ${{ github.event }}
       run: |
-        echo $MESSAGE
-        
+        echo "Start testing"
+        echo "$MESSAGE"
+        echo "Finish testing"
