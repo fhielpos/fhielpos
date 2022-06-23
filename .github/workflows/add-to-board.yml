@@ -8,12 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: ${{ github.event.label.name == 'test-franco' }}
+        name: Add issue to Franco board
         uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/fhielpos/projects/3
           github-token: ${{ secrets.ACTION_ASSIGN }}
           labeled: test-franco
       - if: ${{ github.event.label.name == 'test-test' }}
+        name: Add issue to Test board
         uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/fhielpos/projects/3
