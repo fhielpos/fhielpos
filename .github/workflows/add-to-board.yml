@@ -1,7 +1,7 @@
 name: Add issue to board
 on:
   issues:
-    types: [labeled, unlabeled]
+    types: [labeled]
 jobs:
   job:
     name: Add issue to board
@@ -12,45 +12,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
         FH_BUG: type/bug,3
         ORGANIZATION: fhielpos
+        MESSAGE: ${{ github.event }}
       run: |
-        action=$(cat $GITHUB_EVENT_PATH | jq -r .action)
-        event_label=$(cat $GITHUB_EVENT_PATH | jq -r .label.name)
-        issue_id=$(cat $GITHUB_EVENT_PATH | jq .issue.node_id)
-        issue_url=$(cat $GITHUB_EVENT_PATH | jq -r .issue.url)
-
-        for envvar in $(env | grep FH_ | awk -F '=' '{print $2}'); do
-            label=$(echo $envvar | awk -F ',' '{print $1}')
-            project_number=$(echo $envvar | awk -F ',' '{print $2}')
-            if [[ "$event_label" == "$label" ]]; then
-                # Get project node ID:
-                PROJECT_ID=$(gh api graphql -f query='
-                                query($org: String!, $number: Int!) {
-                                  user(login: $org){
-                                    projectNext(number: $number) {
-                                      id
-                                      fields(first:20) {
-                                        nodes {
-                                          id
-                                        }
-                                      }
-                                    }
-                                  }
-                                }' -f org=$ORGANIZATION -F number=$project_number --jq '.data.user.projectNext.id')
-
-                echo "Project: "$PROJECT_ID
-                echo "Issue: " $issue_id
-
-                if [[ "$action" == "labeled" ]]; then
-                    gh api graphql -f query='
-                      mutation($project:ID!, $issue:ID!) {
-                        addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
-                          projectNextItem {
-                            id
-                          }
-                        }
-                      }' -f project=$PROJECT_ID -f issue=$issue_id
-                else
-                    echo "Unlabeled issue"
-                fi
-            fi
-        done
+        echo $MESSAGE
