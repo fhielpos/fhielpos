@@ -11,11 +11,11 @@ jobs:
         uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/fhielpos/projects/3
-          github-token: ${{ secrets.ASSIGN_TOKEN }}
+          github-token: ${{ secrets.ACTION_ASSIGN }}
           labeled: test-franco
       - if: ${{ github.event.label.name == 'test-test' }}
         uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/fhielpos/projects/3
-          github-token: ${{ secrets.ASSIGN_TOKEN }}
+          github-token: ${{ secrets.ACTION_ASSIGN }}
           labeled: test-test
