@@ -3,15 +3,14 @@ on:
   issues:
     types: [labeled]
 jobs:
-  job:
+  print:
     name: Add issue to board
     runs-on: ubuntu-latest
     steps:
     - name: Validate labels
       env:
         GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
-        FH_BUG: type/bug,3
-        ORGANIZATION: fhielpos
-        MESSAGE: ${{ github.event }}
+        MESSAGE: ${{ github.event.client_payload }}
       run: |
         echo $MESSAGE
+        
