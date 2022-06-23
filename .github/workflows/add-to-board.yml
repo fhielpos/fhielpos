@@ -3,13 +3,19 @@ on:
   issues:
     types: [labeled]
 jobs:
-  print:
-    name: Add issue to board
+  add-to-project-franco:
+    name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-    - name: Validate labels
-      env:
-        GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
-        MESSAGE: ${{ github.event.label.name }}
-      run: |
-        echo "$MESSAGE"
+      - if: ${{ github.event.label.name == 'test-franco' }}
+        uses: actions/add-to-project@main
+        with:
+          project-url: https://github.com/users/fhielpos/projects/3
+          github-token: ${{ secrets.ASSIGN_TOKEN }}
+          labeled: test-franco
+      - if: ${{ github.event.label.name == 'test-test' }}
+        uses: actions/add-to-project@main
+        with:
+          project-url: https://github.com/users/fhielpos/projects/3
+          github-token: ${{ secrets.ASSIGN_TOKEN }}
+          labeled: test-test
