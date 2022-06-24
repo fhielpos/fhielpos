@@ -1,0 +1,16 @@
+name: Remove
+on:
+  issues:
+    types: [unlabeled]
+jobs:
+  print:
+    name: Add issue to board
+    runs-on: ubuntu-latest
+    steps:
+    - name: Validate labels
+      env:
+        GITHUB_TOKEN: ${{ secrets.ASSIGN_TOKEN }}
+      run: |
+        echo "Start testing"
+        cat $GITHUB_EVENT_PATH
+        echo "Finish testing"
